@@ -1,0 +1,28 @@
+
+
+---
+export const prerender = false;
+
+Astro.cache.set({
+  maxAge: 60 * 60,
+});
+
+const { slug } = Astro.params;
+const generatedAt = new Date().toISOString();
+const randomValue = Math.random();
+---
+
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dynamic Route Cache Test</title>
+  </head>
+  <body>
+    <main>
+      <h1>Dynamic Route Cache Test</h1>
+      <p>Slug: {slug}</p>
+      <p>Generated At: {generatedAt}</p>
+      <p>Random Value: {randomValue}</p>
+    </main>
+  </body>
+</html>
