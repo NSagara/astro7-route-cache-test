@@ -13,5 +13,20 @@ export const POST: APIRoute = async ({ cache }) => {
     tags: ['test'],
   });
 
-  return new Response('Cache invalidated');
+  const warmResponse = await fetch(
+    'https://astro7-route-cache-test.vercel.app/test'
+  );
+
+  if (!warmResponse.ok) {
+    return new Response('Cache invalidated, but warming failed', {
+      status: 500,
+    });
+  }
+
+  const html = await warmResponse.text();
+
+  return Response.json({
+    message: 'Cache invalidated and warmed',
+    warmedHtml: html,
+  });
 };
