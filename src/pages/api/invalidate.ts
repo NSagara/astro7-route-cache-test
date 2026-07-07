@@ -10,7 +10,7 @@ export const POST: APIRoute = async ({ cache }) => {
   }
 
   await cache.invalidate({
-    tags: ['test'],
+    tags: ['wp-test'],
   });
 
   return new Response('Cache invalidated');
