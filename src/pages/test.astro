@@ -1,0 +1,25 @@
+---
+export const prerender = false;
+
+Astro.cache.set({
+  maxAge: 60 * 60,
+});
+
+const generatedAt = new Date().toISOString();
+const randomValue = Math.random();
+---
+
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Astro 7 Route Cache Test</title>
+  </head>
+  <body>
+    <main>
+      <h1>Route Cache Test</h1>
+
+      <p>Generated At: {generatedAt}</p>
+      <p>Random Value: {randomValue}</p>
+    </main>
+  </body>
+</html>
