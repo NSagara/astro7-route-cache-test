@@ -18,5 +18,11 @@ export const POST: APIRoute = async () => {
   return Response.json({
     message: 'Cache warmed',
     warmedHtml: html,
+    headers: {
+      age: warmResponse.headers.get('age'),
+      date: warmResponse.headers.get('date'),
+      xVercelCache: warmResponse.headers.get('x-vercel-cache'),
+      xVercelId: warmResponse.headers.get('x-vercel-id'),
+    },
   });
 };
