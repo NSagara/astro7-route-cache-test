@@ -3,6 +3,7 @@ export const prerender = false;
 
 Astro.cache.set({
   maxAge: 60 * 60,
+  tags: ['test'],
 });
 
 const generatedAt = new Date().toISOString();
