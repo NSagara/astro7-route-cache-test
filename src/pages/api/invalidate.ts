@@ -13,6 +13,8 @@ export const POST: APIRoute = async ({ cache }) => {
     tags: ['test'],
   });
 
+  await new Promise((resolve) => setTimeout(resolve, 10_000));
+
   const warmResponse = await fetch(
     'https://astro7-route-cache-test.vercel.app/test'
   );
