@@ -2,7 +2,7 @@ import { defineLiveCollection, z } from "astro:content";
 import type { LiveLoader } from "astro/loaders";
 import type { WpWork } from '../type/wp';
 
-const worksLoader: LiveLoader = {
+const worksLoader: LiveLoader<WpWork, { id: string }> = {
   name: "wp-works-loader",
 
   loadCollection: async () => {
@@ -25,20 +25,20 @@ const worksLoader: LiveLoader = {
   },
 
   loadEntry: async ({ filter }) => {
+    const id = filter.id;
     const response = await fetch(
-      `https://images.tatemono.photo/wp-json/wp/v2/works?slug=${encodeURIComponent(String(filter))}`,
+      `https://images.tatemono.photo/wp-json/wp/v2/works/${encodeURIComponent(id)}`,
     );
+
+    if (response.status === 404) {
+      return undefined;
+    }
 
     if (!response.ok) {
       throw new Error(`Failed to fetch work: ${response.status}`);
     }
 
-    const works: WpWork[] = await response.json();
-    const work = works[0];
-
-    if (!work) {
-      return undefined;
-    }
+    const work: WpWork = await response.json();
 
     return {
       id: String(work.id),

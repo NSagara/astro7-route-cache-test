@@ -1,5 +1,5 @@
 ---
-import { getLiveCollection } from 'astro:content';
+import { getLiveEntry } from 'astro:content';
 
 export const prerender = false;
 
@@ -8,17 +8,13 @@ Astro.cache.set({
   tags: ['wp-test'],
 });
 
-const result = await getLiveCollection('works');
+const result = await getLiveEntry('works', '4225');
 
 if (result.error) {
   throw result.error;
 }
 
-if (!result.entries) {
-  throw new Error('No works returned');
-}
-
-const work = result.entries[0];
+const work = result.entry;
 
 if (!work) {
   throw new Error('No works found');
